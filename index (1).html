@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pranay Yadav — Full-Stack Developer</title>
+<meta name="description" content="Portfolio of Pranay Yadav, a full-stack developer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --asphalt:#14161a; --asphalt-2:#1d2025; --asphalt-3:#2b2f36;
+    --amber:#ffb627; --amber-dim:#c9911f;
+    --green:#2e8b57; --red:#e23b34;
+    --paint:#edeae0; --paint-dim:#9c9a93;
+    --max:1160px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--asphalt); color:var(--paint);
+    font-family:'Inter',sans-serif; line-height:1.6; overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Big Shoulders',sans-serif; margin:0; line-height:1;}
+  p{margin:0;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 clamp(1.25rem,4vw,2.5rem);}
+  section{position:relative;}
+
+  /* ambient glow */
+  .glow{position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none;}
+  .glow span{position:absolute; border-radius:50%; filter:blur(90px); opacity:.22;}
+  .glow span:nth-child(1){width:520px; height:520px; background:var(--amber); top:-160px; left:-120px; animation:drift1 22s ease-in-out infinite;}
+  .glow span:nth-child(2){width:420px; height:420px; background:var(--red); bottom:-140px; right:-100px; animation:drift2 26s ease-in-out infinite;}
+  @keyframes drift1{0%,100%{transform:translate(0,0);}50%{transform:translate(60px,40px);}}
+  @keyframes drift2{0%,100%{transform:translate(0,0);}50%{transform:translate(-50px,-30px);}}
+
+  /* nav */
+  nav{position:sticky; top:0; z-index:50; padding:1.25rem 0; transition:background .3s,border-color .3s,backdrop-filter .3s;border-bottom:1px solid transparent;}
+  nav.scrolled{background:rgba(20,22,26,.85); backdrop-filter:blur(10px); border-color:var(--asphalt-3);}
+  nav .wrap{display:flex; align-items:center; justify-content:space-between;}
+  .logo{font-family:'Big Shoulders',sans-serif; font-weight:800; font-size:1.5rem; color:var(--paint);}
+  .logo span{color:var(--amber);}
+  .nav-links{display:flex; gap:2rem; font-size:.95rem; font-weight:500;}
+  .nav-links a{color:var(--paint-dim); transition:color .2s;}
+  .nav-links a:hover{color:var(--amber);}
+
+  /* hero */
+  .hero{padding:clamp(2.5rem,6vw,5rem) 0 clamp(3rem,7vw,6rem);}
+  .hero .wrap{display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(2rem,5vw,4rem); align-items:center;}
+  .eyebrow{display:inline-flex; align-items:center; gap:.5rem; color:var(--amber); font-size:.85rem; font-weight:600; letter-spacing:.04em; margin-bottom:1.25rem;}
+  .eyebrow::before{content:''; width:8px; height:8px; border-radius:50%; background:var(--amber); box-shadow:0 0 10px var(--amber);}
+  .hero h1{font-size:clamp(2.75rem,6vw,4.5rem); font-weight:800; color:var(--paint);}
+  .hero h1 em{font-style:normal; color:var(--amber);}
+  .hero .lede{margin-top:1.25rem; font-size:clamp(1.05rem,2vw,1.2rem); color:var(--paint-dim); max-width:46ch;}
+  .cta-row{margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;}
+  .btn{padding:.85rem 1.6rem; border-radius:10px; font-weight:600; font-size:.95rem; transition:transform .2s,box-shadow .2s,border-color .2s;}
+  .btn-primary{background:var(--amber); color:var(--asphalt);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 25px -8px rgba(255,182,39,.5);}
+  .btn-secondary{border:2px solid var(--asphalt-3); color:var(--paint);}
+  .btn-secondary:hover{border-color:var(--amber); color:var(--amber);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--amber); outline-offset:3px;}
+
+  /* fade-up entrance, staggered */
+  .fade-up{opacity:0; transform:translateY(18px); animation:fadeUp .7s ease forwards;}
+  .d1{animation-delay:.05s;} .d2{animation-delay:.18s;} .d3{animation-delay:.31s;} .d4{animation-delay:.44s;} .d5{animation-delay:.57s;}
+  @keyframes fadeUp{to{opacity:1; transform:translateY(0);}}
+
+  /* sign card */
+  .stage{perspective:1000px;}
+  .sign{
+    position:relative; border-radius:18px; padding:2.25rem 2rem;
+    background:linear-gradient(135deg,#ffd166 0%,#ffb627 55%,#f5a100 100%);
+    color:var(--asphalt); transform-style:preserve-3d; transition:transform .12s ease-out;
+    box-shadow:0 25px 60px -18px rgba(255,182,39,.35), 0 14px 30px rgba(0,0,0,.45);
+  }
+  .sign::before{content:''; position:absolute; inset:0; border-radius:18px; background:linear-gradient(115deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 30%); mix-blend-mode:overlay; pointer-events:none;}
+  .badge{display:inline-block; background:var(--asphalt); color:var(--amber); font-family:'Big Shoulders',sans-serif; font-weight:800; font-size:.85rem; letter-spacing:.03em; padding:.3rem .6rem; border-radius:6px; margin-bottom:1.1rem;}
+  .sign h2{font-size:clamp(2.4rem,5vw,3.2rem); font-weight:900; letter-spacing:.01em;}
+  .sign .role{margin-top:.4rem; font-family:'Inter',sans-serif; font-weight:600; font-size:.85rem; letter-spacing:.06em; text-transform:uppercase; opacity:.75;}
+  .sign hr{margin-top:1.5rem; border:none; border-top:2px dashed rgba(20,22,26,.35);}
+  .bolt{position:absolute; width:12px; height:12px; border-radius:50%; background:#4b4f57; box-shadow:inset 0 1px 2px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.15);}
+  .bolt.tl{top:14px; left:14px;} .bolt.tr{top:14px; right:14px;} .bolt.bl{bottom:14px; left:14px;} .bolt.br{bottom:14px; right:14px;}
+
+  /* marquee */
+  .marquee-wrap{border-top:1px solid var(--asphalt-3); border-bottom:1px solid var(--asphalt-3); overflow:hidden; padding:1.1rem 0; background:var(--asphalt-2);}
+  .marquee{display:flex; width:max-content; animation:scroll 22s linear infinite;}
+  .marquee-wrap:hover .marquee{animation-play-state:paused;}
+  .marquee-group{display:flex; align-items:center;}
+  .marquee-group span.item{font-family:'Big Shoulders',sans-serif; font-weight:700; font-size:1.1rem; color:var(--paint-dim); padding:0 1.75rem; white-space:nowrap;}
+  .marquee-group span.tick{width:5px; height:14px; background:var(--amber); border-radius:2px;}
+  @keyframes scroll{to{transform:translateX(-50%);}}
+
+  /* work */
+  .work{padding:clamp(4rem,8vw,7rem) 0;}
+  .section-head{margin-bottom:2.5rem;}
+  .section-head h2{font-size:clamp(2rem,4vw,2.75rem); font-weight:800; color:var(--paint);}
+  .project{
+    position:relative; background:var(--asphalt-2); border:1px solid var(--asphalt-3); border-radius:20px;
+    padding:clamp(1.75rem,4vw,3rem); display:grid; grid-template-columns:1.2fr 1fr; gap:2.5rem; align-items:center;
+    overflow:hidden;
+  }
+  .project::before{content:''; position:absolute; left:0; top:0; bottom:0; width:5px; background:var(--amber);}
+  .status{display:inline-block; font-size:.78rem; font-weight:600; letter-spacing:.03em; color:var(--amber); border:1px solid var(--amber-dim); background:rgba(255,182,39,.08); padding:.3rem .7rem; border-radius:999px; margin-bottom:1rem;}
+  .project h3{font-size:clamp(1.6rem,3vw,2.1rem); font-weight:800; color:var(--paint); margin-bottom:.9rem;}
+  .project p.desc{color:var(--paint-dim); font-size:1rem; max-width:52ch; margin-bottom:1.4rem;}
+  .features{list-style:none; padding:0; margin:0 0 1.6rem; display:grid; grid-template-columns:1fr 1fr; gap:.7rem;}
+  .features li{display:flex; gap:.6rem; align-items:flex-start; font-size:.92rem; color:var(--paint);}
+  .features li::before{content:''; width:7px; height:7px; margin-top:.5rem; flex-shrink:0; background:var(--amber); border-radius:2px;}
+  .tags{display:flex; flex-wrap:wrap; gap:.5rem;}
+  .tags span{font-size:.8rem; font-weight:500; color:var(--paint-dim); background:var(--asphalt-3); padding:.35rem .7rem; border-radius:7px;}
+  .illustration{width:100%; height:auto;}
+  .road-line{stroke-dasharray:600; stroke-dashoffset:600; transition:stroke-dashoffset 1.6s ease;}
+  .project.in-view .road-line{stroke-dashoffset:0;}
+  .pin{transform-box:fill-box; transform-origin:center; opacity:0; transition:opacity .5s ease;}
+  .project.in-view .pin{opacity:1;}
+  .project.in-view .pin.main{animation:pulse 2.2s ease-in-out .6s infinite;}
+  .pin.p2{transition-delay:.4s;} .pin.p3{transition-delay:.7s;}
+  @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.35);}}
+
+  .projects-list{display:flex; flex-direction:column; gap:1.75rem;}
+  .project-compact{grid-template-columns:1fr 130px;}
+  .swatches{position:relative; width:130px; height:100px; flex-shrink:0;}
+  .swatches span{position:absolute; width:60px; height:80px; top:10px; border-radius:10px; box-shadow:0 10px 20px -8px rgba(0,0,0,.5); transition:transform .3s ease;}
+  .swatches span:nth-child(1){background:var(--green); left:0; transform:rotate(-10deg);}
+  .swatches span:nth-child(2){background:var(--amber); left:30px; transform:rotate(2deg); z-index:2;}
+  .swatches span:nth-child(3){background:#5b6472; left:60px; transform:rotate(14deg);}
+  .project-compact:hover .swatches span:nth-child(1){transform:rotate(-16deg) translateY(-4px);}
+  .project-compact:hover .swatches span:nth-child(3){transform:rotate(20deg) translateY(-4px);}
+
+  /* footer */
+  footer{padding:clamp(3rem,7vw,5rem) 0 3rem; text-align:center;}
+  footer h2{font-size:clamp(2rem,4.5vw,3rem); font-weight:800; margin-bottom:1rem;}
+  footer p{color:var(--paint-dim); max-width:40ch; margin:0 auto 2rem;}
+  .contact-row{display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; margin-bottom:3rem;}
+  .chip{border:1px solid var(--asphalt-3); padding:.7rem 1.4rem; border-radius:10px; font-weight:600; font-size:.9rem; transition:border-color .2s,color .2s;}
+  .chip:hover{border-color:var(--amber); color:var(--amber);}
+  .fine{color:var(--paint-dim); font-size:.85rem;}
+
+  @media(max-width:900px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .stage{order:-1; max-width:380px; margin:0 auto;}
+    .project{grid-template-columns:1fr;}
+    .features{grid-template-columns:1fr;}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important;}
+    .fade-up{opacity:1; transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="glow"><span></span><span></span></div>
+
+<nav id="nav">
+  <div class="wrap">
+    <div class="logo">PRANAY<span>.</span></div>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow fade-up d1">B.Tech CSE · Lovely Professional University</div>
+      <h1 class="fade-up d2">Hi, I'm <em>Pranay Yadav</em></h1>
+      <p class="lede fade-up d3">A full-stack developer who builds practical tools — from RoadWatch, a bilingual platform for reporting road damage, to Fit Mirror, a virtual try-on experience.</p>
+      <div class="cta-row fade-up d4">
+        <a href="#contact" class="btn btn-primary">Get in touch</a>
+        <a href="#work" class="btn btn-secondary">See my work</a>
+      </div>
+    </div>
+    <div class="stage fade-up d5" id="stage">
+      <div class="sign" id="signCard">
+        <span class="bolt tl"></span><span class="bolt tr"></span><span class="bolt bl"></span><span class="bolt br"></span>
+        <span class="badge">SR·01</span>
+        <h2>PRANAY</h2>
+        <div class="role">Full-Stack Developer</div>
+        <hr>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee" id="marquee">
+    <div class="marquee-group">
+      <span class="item">JAVASCRIPT</span><span class="tick"></span>
+      <span class="item">TYPESCRIPT</span><span class="tick"></span>
+      <span class="item">REACT</span><span class="tick"></span>
+      <span class="item">NODE.JS</span><span class="tick"></span>
+      <span class="item">EXPRESS</span><span class="tick"></span>
+      <span class="item">MONGODB</span><span class="tick"></span>
+      <span class="item">MYSQL</span><span class="tick"></span>
+      <span class="item">PYTHON</span><span class="tick"></span>
+      <span class="item">JAVA</span><span class="tick"></span>
+      <span class="item">C++</span><span class="tick"></span>
+    </div>
+    <div class="marquee-group" aria-hidden="true">
+      <span class="item">JAVASCRIPT</span><span class="tick"></span>
+      <span class="item">TYPESCRIPT</span><span class="tick"></span>
+      <span class="item">REACT</span><span class="tick"></span>
+      <span class="item">NODE.JS</span><span class="tick"></span>
+      <span class="item">EXPRESS</span><span class="tick"></span>
+      <span class="item">MONGODB</span><span class="tick"></span>
+      <span class="item">MYSQL</span><span class="tick"></span>
+      <span class="item">PYTHON</span><span class="tick"></span>
+      <span class="item">JAVA</span><span class="tick"></span>
+      <span class="item">C++</span><span class="tick"></span>
+    </div>
+  </div>
+</div>
+
+<section class="work" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Featured work</h2>
+    </div>
+    <div class="projects-list">
+    <div class="project" id="projectCard">
+      <div>
+        <span class="status">Jun 2026 – Jul 2026</span>
+        <h3>RoadWatch</h3>
+        <p class="desc">A full-stack platform that lets citizens report road damage straight to local authorities — bilingual in English and Hindi, with a visual language borrowed from road signage itself.</p>
+        <ul class="features">
+          <li>Complaint submission with photo uploads</li>
+          <li>GPS coordinates on every report</li>
+          <li>Status tracking through resolution</li>
+          <li>Admin panel with reporting dashboard</li>
+        </ul>
+        <div class="tags">
+          <span>React</span><span>Vite</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>JWT</span>
+        </div>
+      </div>
+      <svg class="illustration" viewBox="0 0 440 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 220 C120 220 100 100 200 100 C300 100 280 40 410 40" stroke="#2b2f36" stroke-width="7" stroke-linecap="round"/>
+        <path class="road-line" d="M30 220 C120 220 100 100 200 100 C300 100 280 40 410 40" stroke="#ffb627" stroke-width="2" stroke-dasharray="10 10" stroke-linecap="round"/>
+        <g class="pin p1"><circle cx="30" cy="220" r="7" fill="#9c9a93"/></g>
+        <g class="pin main"><circle cx="200" cy="100" r="9" fill="#ffb627"/><circle cx="200" cy="100" r="9" fill="none" stroke="#ffb627" stroke-width="2" opacity=".5"/></g>
+        <g class="pin p3"><circle cx="410" cy="40" r="7" fill="#2e8b57"/></g>
+      </svg>
+    </div>
+
+    <div class="project project-compact">
+      <div>
+        <span class="status">Jan 2026 – Mar 2026</span>
+        <h3>Fit Mirror</h3>
+        <p class="desc">A virtual try-on platform that lets users visualize clothing products before they buy, with a responsive UI for browsing items and managing the try-on flow.</p>
+        <div class="tags">
+          <span>React</span><span>Node.js</span><span>Express</span><span>MongoDB</span>
+        </div>
+      </div>
+      <div class="swatches" aria-hidden="true"><span></span><span></span><span></span></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>Let's build something</h2>
+    <p>Have a project in mind, or just want to say hi? My inbox is open.</p>
+    <div class="contact-row">
+      <a class="chip" href="mailto:mepranay18@gmail.com">mepranay18@gmail.com</a>
+      <a class="chip" href="tel:+917852802982">+91 78528 02982</a>
+      <a class="chip" href="https://github.com/Pranay-533" target="_blank" rel="noopener">GitHub</a>
+      <a class="chip" href="https://www.linkedin.com/in/ipranayyadav" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p class="fine">Designed &amp; built by Pranay Yadav.</p>
+  </div>
+</footer>
+
+<script>
+  // nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // tilt interaction (skipped for touch / reduced motion)
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const stage = document.getElementById('stage');
+  const card = document.getElementById('signCard');
+  if (stage && card && !reduce && window.matchMedia('(hover: hover)').matches) {
+    stage.addEventListener('mousemove', (e) => {
+      const r = stage.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `rotateX(${(-y * 16).toFixed(2)}deg) rotateY(${(x * 16).toFixed(2)}deg)`;
+    });
+    stage.addEventListener('mouseleave', () => {
+      card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    });
+  }
+
+  // reveal project illustration on scroll into view
+  const proj = document.getElementById('projectCard');
+  if (proj) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+    io.observe(proj);
+  }
+</script>
+
+</body>
+</html>
